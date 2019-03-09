@@ -70,6 +70,29 @@ describe("routes : posts", () => {
           });
       });
     });
+    it("should not create a new post that fails validations", done => {
+      const options = {
+        url: `${base}/${this.topic.id}/posts/create`,
+        form: {
+          //#1
+          title: "a",
+          body: "b"
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+        //#2
+        Post.findOne({ where: { title: "a" } })
+          .then(post => {
+            expect(post).toBeNull();
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+      });
+    });
   });
   describe("GET /topics/:topicId/posts/:id", () => {
     it("should render a view with the selected post", done => {
@@ -133,7 +156,8 @@ describe("routes : posts", () => {
       const options = {
         url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
         form: {
-          title: "Snowman Building Competition"
+          title: "Snowman Building Competition",
+          body: this.post.body
         }
       };
       request.post(options, (err, res, body) => {

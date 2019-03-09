@@ -45,6 +45,8 @@ module.exports = {
           callback(null, post);
         })
         .catch(err => {
+          console.log(err);
+
           callback(err);
         });
     });
