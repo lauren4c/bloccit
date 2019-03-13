@@ -42,11 +42,13 @@ module.exports = {
       }
     });
   },
+
   destroy(req, res, next) {
-    postQueries.deletePost(req.params.id, (err, post) => {
+    // #1
+    postQueries.deletePost(req, (err, post) => {
       if (err) {
         res.redirect(
-          typeof err === "number" ? err : 500,
+          err,
           `/topics/${req.params.topicId}/posts/${req.params.id}`
         );
       } else {
@@ -54,6 +56,7 @@ module.exports = {
       }
     });
   },
+
   edit(req, res, next) {
     postQueries.getPost(req.params.id, (err, post) => {
       if (err || post == null) {
@@ -73,7 +76,7 @@ module.exports = {
     postQueries.updatePost(req, req.body, (err, post) => {
       if (err || post == null) {
         res.redirect(
-          404,
+          401,
           `/topics/${req.params.topicId}/posts/${req.params.id}/edit`
         );
       } else {

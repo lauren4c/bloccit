@@ -7,8 +7,6 @@ const helper = require("../auth/helpers");
 router.get(
   "/topics/:topicId/posts/new",
   helper.ensureAuthenticated,
-  validation.validatePosts,
-
   postController.new
 );
 router.post(
@@ -18,6 +16,7 @@ router.post(
   postController.create
 );
 router.get("/topics/:topicId/posts/:id", postController.show);
+
 router.post(
   "/topics/:topicId/posts/:id/destroy",
   helper.ensureAuthenticated,
@@ -25,14 +24,13 @@ router.post(
 );
 router.get(
   "/topics/:topicId/posts/:id/edit",
-  postController.edit,
-  validation.validatePosts,
-  helper.ensureAuthenticated
+  helper.ensureAuthenticated,
+  postController.edit
 );
 router.post(
   "/topics/:topicId/posts/:id/update",
+  helper.ensureAuthenticated,
   validation.validatePosts,
-  postController.update,
-  helper.ensureAuthenticated
+  postController.update
 );
 module.exports = router;
