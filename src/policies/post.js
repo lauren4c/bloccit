@@ -3,7 +3,7 @@ const ApplicationPolicy = require("./application");
 module.exports = class PostPolicy extends ApplicationPolicy {
   // #2
   new() {
-    return this.user.id != null;
+    return !!this.user;
   }
 
   create() {

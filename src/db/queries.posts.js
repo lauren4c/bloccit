@@ -23,20 +23,17 @@ module.exports = {
   },
 
   deletePost(req, callback) {
-    // #1
     return Post.findByPk(req.params.id)
       .then(post => {
-        // #2
         const authorized = new Authorizer(req.user, post).destroy();
 
         if (authorized) {
-          // #3
           post.destroy().then(res => {
             callback(null, post);
           });
         } else {
-          // #4
           req.flash("notice", "You are not authorized to do that.");
+
           callback(401);
         }
       })
@@ -44,24 +41,6 @@ module.exports = {
         callback(err);
       });
   },
-  // updatePost(id, updatedPost, callback) {
-  //   return Post.findByPk(id).then(post => {
-  //     if (!post) {
-  //       return callback("Post not found");
-  //     }
-  //
-  //     post
-  //       .update(updatedPost, {
-  //         fields: Object.keys(updatedPost)
-  //       })
-  //       .then(() => {
-  //         callback(null, post);
-  //       })
-  //       .catch(err => {
-  //         callback(err);
-  //       });
-  //   });
-  // },
 
   updatePost(req, updatedPost, callback) {
     return Post.findByPk(req.params.id).then(post => {

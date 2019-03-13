@@ -4,11 +4,7 @@ const postController = require("../controllers/postController");
 const validation = require("./validation");
 const helper = require("../auth/helpers");
 
-router.get(
-  "/topics/:topicId/posts/new",
-  helper.ensureAuthenticated,
-  postController.new
-);
+router.get("/topics/:topicId/posts/new", postController.new);
 router.post(
   "/topics/:topicId/posts/create",
   helper.ensureAuthenticated,
@@ -22,11 +18,7 @@ router.post(
   helper.ensureAuthenticated,
   postController.destroy
 );
-router.get(
-  "/topics/:topicId/posts/:id/edit",
-  helper.ensureAuthenticated,
-  postController.edit
-);
+router.get("/topics/:topicId/posts/:id/edit", postController.edit);
 router.post(
   "/topics/:topicId/posts/:id/update",
   helper.ensureAuthenticated,
