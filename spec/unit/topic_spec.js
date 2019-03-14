@@ -87,14 +87,11 @@ describe("Topic", () => {
   });
 
   describe("#getPosts()", () => {
-    it("should return the posts associated with a topic", done => {
-      Post.create({
-        title: "Expedition Number One to Alpha Centauri",
-        body: "A report about my recent visit to Alpha Centauri.",
-        topicId: this.topic.id,
-        userId: this.user.id
-      }).then(newPost => {
-        expect(newPost.topicId).toBe(this.topic.id);
+    it("should return all the posts associated with this topic", done => {
+      this.topic.getPosts().then(associatedPosts => {
+        expect(associatedPosts[0].title).toBe(
+          "My first visit to Proxima Centauri b"
+        );
         done();
       });
     });
