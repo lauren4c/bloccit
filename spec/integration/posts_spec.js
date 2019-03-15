@@ -48,6 +48,21 @@ describe("routes : posts", () => {
   });
   //tests for guest
   describe("guest performing CRUD actions for Post", () => {
+    beforeEach(done => {
+      // before each suite in this context
+      request.get(
+        {
+          // mock authentication
+          url: "http://localhost:3000/auth/fake",
+          form: {
+            userId: "0" // flag to indicate mock auth to destroy any session
+          }
+        },
+        (err, res, body) => {
+          done();
+        }
+      );
+    });
     describe("GET /topics/:topicId/posts/new", () => {
       it("should redirect to posts view", done => {
         request.get(`${base}/${this.topic.id}/posts/new`, (err, res, body) => {
