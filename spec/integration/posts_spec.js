@@ -6,6 +6,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
+// getting random failures? see guest fakeAuth.
 
 describe("routes : posts", () => {
   beforeEach(done => {
@@ -49,10 +50,9 @@ describe("routes : posts", () => {
   //tests for guest
   describe("guest performing CRUD actions for Post", () => {
     beforeEach(done => {
-      // before each suite in this context
+      // if this test fails, try removing this beforeEach fake auth. slack Ticket #18353
       request.get(
         {
-          // mock authentication
           url: "http://localhost:3000/auth/fake",
           form: {
             userId: "0" // flag to indicate mock auth to destroy any session
