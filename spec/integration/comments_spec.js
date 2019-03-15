@@ -74,10 +74,8 @@ describe("routes : comments", () => {
   describe("guest attempting to perform CRUD actions for Comment", () => {
     //  #2
     beforeEach(done => {
-      // before each suite in this context
       request.get(
         {
-          // mock authentication
           url: "http://localhost:3000/auth/fake",
           form: {
             userId: "0" // flag to indicate mock auth to destroy any session
@@ -204,5 +202,87 @@ describe("routes : comments", () => {
         });
       });
     });
-  }); //end context for signed in user
+  });
+  //end context for signed in user
+  describe("Member trying to delete a comment of another member", () => {
+    beforeEach(done => {
+      // before each suite in this context
+      request.get(
+        {
+          // mock authentication
+          url: "http://localhost:3000/auth/fake",
+          form: {
+            role: "member", // mock authenticate as member user
+            userId: 23
+          }
+        },
+        (err, res, body) => {
+          done();
+        }
+      );
+    });
+    describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
+      it("admin should delete the comment with the any ID", done => {
+        Comment.findAll().then(comments => {
+          const commentCountBeforeDelete = comments.length;
+
+          expect(commentCountBeforeDelete).toBe(1);
+
+          request.post(
+            `${base}${this.topic.id}/posts/${this.post.id}/comments/${
+              this.comment.id
+            }/destroy`,
+            (err, res, body) => {
+              Comment.findAll().then(comments => {
+                expect(err).toBeNull();
+                expect(comments.length).toBe(commentCountBeforeDelete);
+                done();
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+  describe("Admin performing CRUD actions for Comment", () => {
+    beforeEach(done => {
+      // before each suite in this context
+      request.get(
+        {
+          // mock authentication
+          url: "http://localhost:3000/auth/fake",
+          form: {
+            role: "admin", // mock authenticate as member user
+            userId: this.user.id
+          }
+        },
+        (err, res, body) => {
+          done();
+        }
+      );
+    });
+    describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
+      it("admin should delete the comment with the any ID", done => {
+        Comment.findAll().then(comments => {
+          const commentCountBeforeDelete = comments.length;
+
+          expect(commentCountBeforeDelete).toBe(1);
+
+          request.post(
+            `${base}${this.topic.id}/posts/${this.post.id}/comments/${
+              this.comment.id
+            }/destroy`,
+            (err, res, body) => {
+              expect(res.statusCode).toBe(302);
+              Comment.findAll().then(comments => {
+                expect(err).toBeNull();
+                expect(comments.length).toBe(commentCountBeforeDelete - 1);
+                done();
+              });
+            }
+          );
+        });
+      });
+    });
+  });
 });
