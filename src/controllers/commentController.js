@@ -24,7 +24,7 @@ module.exports = {
       });
     } else {
       req.flash("notice", "You must be signed in to do that.");
-      req.redirect("/users/sign_in");
+      res.redirect(req.headers.referer);
     }
   },
 

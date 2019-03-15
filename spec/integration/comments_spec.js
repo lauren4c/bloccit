@@ -72,7 +72,7 @@ describe("routes : comments", () => {
   });
 
   describe("guest attempting to perform CRUD actions for Comment", () => {
-    // #2
+    //  #2
     beforeEach(done => {
       // before each suite in this context
       request.get(
@@ -80,7 +80,7 @@ describe("routes : comments", () => {
           // mock authentication
           url: "http://localhost:3000/auth/fake",
           form: {
-            userId: 0 // flag to indicate mock auth to destroy any session
+            userId: "0" // flag to indicate mock auth to destroy any session
           }
         },
         (err, res, body) => {
@@ -183,7 +183,7 @@ describe("routes : comments", () => {
     // #3
     describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
       it("should delete the comment with the associated ID", done => {
-        Comment.finadAll().then(comments => {
+        Comment.findAll().then(comments => {
           const commentCountBeforeDelete = comments.length;
 
           expect(commentCountBeforeDelete).toBe(1);
@@ -194,7 +194,7 @@ describe("routes : comments", () => {
             }/destroy`,
             (err, res, body) => {
               expect(res.statusCode).toBe(302);
-              Comment.all().then(comments => {
+              Comment.findAll().then(comments => {
                 expect(err).toBeNull();
                 expect(comments.length).toBe(commentCountBeforeDelete - 1);
                 done();

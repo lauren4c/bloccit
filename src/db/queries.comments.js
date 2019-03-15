@@ -1,7 +1,6 @@
 const Comment = require("./models").Comment;
 const Post = require("./models").Post;
 const User = require("./models").User;
-
 const Authorizer = require("../policies/comment");
 
 module.exports = {
@@ -16,12 +15,13 @@ module.exports = {
   },
 
   deleteComment(req, callback) {
-    return Comment.findById(req.params.id).then(comment => {
+    return Comment.findByPk(req.params.id).then(comment => {
       const authorized = new Authorizer(req.user, comment).destroy();
 
       if (authorized) {
-        comment.destroy();
-        callback(null, comment);
+        comment.destroy().then(res => {
+          callback(null, comment);
+        });
       } else {
         req.flash("notice", "You are not authorized to do that.");
         callback(401);
