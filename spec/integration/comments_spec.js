@@ -222,7 +222,7 @@ describe("routes : comments", () => {
       );
     });
     describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
-      it("admin should delete the comment with the any ID", done => {
+      it("member should not delete the comment with another id", done => {
         Comment.findAll().then(comments => {
           const commentCountBeforeDelete = comments.length;
 
