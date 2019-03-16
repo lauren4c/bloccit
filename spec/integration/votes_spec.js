@@ -142,8 +142,49 @@ describe("routes : votes", () => {
             });
         });
       });
-    });
+      it("should not create a vote with a value other than 1 or -1", done => {
+        const options = {
+          url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`,
+          form: {
+            value: 3
+          }
+        };
 
+        request.post(options, (err, res, body) => {
+          //#2
+          Vote.findOne({ where: { value: 3 } })
+            .then(vote => {
+              expect(vote).toBeNull();
+              done();
+            })
+            .catch(err => {
+              console.log(err);
+              done();
+            });
+        });
+      });
+      it("should not create more than 1 vote per user per post", done => {
+        const options = {
+          url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`,
+          form: {
+            userId: this.user.id
+          }
+        };
+
+        request.post(options, (err, res, body) => {
+          //#2
+          Vote.findOne({ where: { userId: this.user.id } })
+            .then(vote => {
+              expect(vote).toBeNull();
+              done();
+            })
+            .catch(err => {
+              console.log(err);
+              done();
+            });
+        });
+      });
+    });
     describe("GET /topics/:topicId/posts/:postId/votes/downvote", () => {
       it("should create a downvote", done => {
         const options = {
