@@ -18,13 +18,14 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "tpuewxtzporxzh",
+    "password": "36a97e489220d2ef7a8fbe2721b563c0c2a135e60f9ba6379f8feae428d7b2ee",
+    "database": "dchfuckqoq8b0l",
+    "host": "ec2-54-83-196-179.compute-1.amazonaws.com",
     "dialect": "postgres",
     "logging": false,
     "operatorsAliases": false,
-    "use_env_variable": "DATABASE_URL"
+    "use_env_variable": "DATABASE_URL",
+    "db": "env.process.postgres://tpuewxtzporxzh:36a97e489220d2ef7a8fbe2721b563c0c2a135e60f9ba6379f8feae428d7b2ee@ec2-54-83-196-179.compute-1.amazonaws.com:5432/dchfuckqoq8b0l"
   }
 }
