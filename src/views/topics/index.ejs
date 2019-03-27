@@ -6,11 +6,12 @@
   <body>
     <main class="container">
       <% include ../static/partials/navbar.ejs %>
-       <h1>Topics</h1>
+       <h1>Trails by Area</h1>
+       <p>Colorado has hundreds of miles of trails, some of which are rideable all year round. Select your riding area and find your new favorite trail.</p>
        <% if(currentUser && currentUser.isAdmin()) { %>
-  <a href="/topics/new" class="btn btn-success">New Topic</a>
+  <a href="/topics/new" class="btn btn-info">Add an Area</a>
 <% } %>
-
+<hr>
       <ul class="list-group">
 <!-- #1 -->
         <% topics.forEach((topic) => { %>

@@ -5,18 +5,15 @@ const Vote = require("./models").Vote;
 
 module.exports = {
   createVote(req, val, callback) {
-    // #2
     return Vote.findOne({
       where: {
         postId: req.params.postId,
         userId: req.user.id
       }
     }).then(vote => {
-      // #3
       if (vote) {
-        vote.value = val;
         vote
-          .save()
+          .increment("value", { by: val })
           .then(vote => {
             callback(null, vote);
           })
@@ -24,7 +21,6 @@ module.exports = {
             callback(err);
           });
       } else {
-        // #4
         Vote.create({
           value: val,
           postId: req.params.postId,

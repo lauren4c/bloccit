@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isIn: [[-1, 1]]
+          isIn: [[-1, 0, 1]]
         }
       },
       postId: {

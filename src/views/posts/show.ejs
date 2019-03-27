@@ -12,19 +12,22 @@
   <% if(currentUser) { %>
     <% include ../votes/voting.ejs %>
   <% } %>
-      <h1><%= post.title %></h1>
+      <h1><%= post.title  %></h1>
+      <% if(currentUser) { %>
+      <% include ../favorites/favoriting.ejs %>
+      <% } %>
     </div>
+
+<p><%= post.body %></p>
+<hr>
       <% if(currentUser && (currentUser.id === post.userId || currentUser.isAdmin())) { %>
 
-         <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
+         <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-outline-warning">Edit</a>
       <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">
-     <button type="submit" class="btn btn-danger">Delete</button>
+     <button type="submit" class="btn btn-outline-danger">Remove</button>
    </form>
+   <hr>
       <% } %>
-      <% if(currentUser) { %>
-  <% include ../favorites/favoriting.ejs %>
-<% } %>
-      <p><%= post.body %></p>
       <section id="comment-form">
 
  <% if(currentUser) { %>

@@ -8,12 +8,12 @@
 
     <main class="container">
 
-      <h1>Edit Topic</h1>
+      <h1>Edit Area</h1>
 
 <!-- #1 -->
       <form action="/topics/<%= topic.id %>/update" method="post">
         <div class="form-group">
-          <label for="title">Topic title</label>
+          <label for="title">Area Name</label>
 <!-- #2 -->
           <input value="<%= topic.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>
@@ -22,7 +22,7 @@
 <!-- #3 -->
           <textarea rows="4" class="form-control" name="description" placeholder="Enter Description"><%= topic.description %></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-info">Update</button>
       </form>
     </main>
 
