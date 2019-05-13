@@ -84,7 +84,7 @@ describe("routes : topics", () => {
         request.get(base, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
-          expect(body).toContain("Topics");
+          expect(body).toContain("Trails by Area");
           expect(body).toContain("JS Frameworks");
           done();
         });
@@ -94,7 +94,7 @@ describe("routes : topics", () => {
       it("should render a new topic form", done => {
         request.get(`${base}new`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("New Topic");
+          expect(body).toContain("New Trail Area");
           done();
         });
       });
@@ -163,7 +163,7 @@ describe("routes : topics", () => {
       it("should render a view with an edit topic form", done => {
         request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("Edit Topic");
+          expect(body).toContain("Edit Area");
           expect(body).toContain("JS Frameworks");
           done();
         });
@@ -219,12 +219,12 @@ describe("routes : topics", () => {
       });
     });
     describe("GET /topics", () => {
-      it("should return a status code 200 and all topics", done => {
+      it("should return a status code 200 and all areas", done => {
         //#3
         request.get(base, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
-          expect(body).toContain("Topics");
+          expect(body).toContain("Trails by Area");
           expect(body).toContain("JS Frameworks");
           done();
         });
@@ -234,7 +234,7 @@ describe("routes : topics", () => {
       it("should redirect to topics view", done => {
         request.get(`${base}new`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("Topics");
+          expect(body).toContain("Trails by Area");
           done();
         });
       });
@@ -298,7 +298,7 @@ describe("routes : topics", () => {
       it("should not render a view with an edit topic form", done => {
         request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).not.toContain("Edit Topic");
+          expect(body).not.toContain("Edit Area");
           expect(body).toContain("JS Frameworks"); // confirm redirect to topic show
           done();
         });

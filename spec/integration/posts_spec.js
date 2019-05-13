@@ -64,10 +64,10 @@ describe("routes : posts", () => {
       );
     });
     describe("GET /topics/:topicId/posts/new", () => {
-      it("should redirect to posts view", done => {
+      it("should redirect to trails view", done => {
         request.get(`${base}/${this.topic.id}/posts/new`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("Posts");
+          expect(body).toContain("Trails");
           done();
         });
       });
@@ -124,12 +124,12 @@ describe("routes : posts", () => {
       });
     });
     describe("GET /topics/:topicId/posts/:id/edit", () => {
-      it("should not render a view with an edit post form", done => {
+      it("should not render a view with an edit trail form", done => {
         request.get(
           `${base}/${this.topic.id}/posts/${this.post.id}/edit`,
           (err, res, body) => {
             expect(err).toBeNull();
-            expect(body).not.toContain("Edit Post");
+            expect(body).not.toContain("Edit Trail");
             expect(body).toContain("Snowball Fighting");
             done();
           }
@@ -188,7 +188,7 @@ describe("routes : posts", () => {
       it("should render a new post form", done => {
         request.get(`${base}/${this.topic.id}/posts/new`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("New Post");
+          expect(body).toContain("New Trail");
           done();
         });
       });
@@ -278,7 +278,7 @@ describe("routes : posts", () => {
           `${base}/${this.topic.id}/posts/${this.post.id}/edit`,
           (err, res, body) => {
             expect(err).toBeNull();
-            expect(body).toContain("Edit Post");
+            expect(body).toContain("Edit Trail");
             expect(body).toContain("Snowball Fighting");
             done();
           }
